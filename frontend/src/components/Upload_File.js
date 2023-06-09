@@ -27,25 +27,22 @@ const FileDropZone = ({ callback }) => {
     }
 
     try {
-        const formData = new FormData();
-        formData.append('file', file);
+      const formData = new FormData();
+      formData.append('file', file);
 
-        const res = axios.post('http://localhost:5000/upload_pdf/', formData);
+      const res = await axios.post('http://127.0.0.1:5000/upload_pdf/', formData);
 
-        res.then((response) => {
-            if (response.data.success) {
-                callback(name);
-            } else {
-                alert('File upload failed');
-            }
-        }).catch((error) => {
-            console.error(error);
-            alert('File upload failed');
-        })
-    } catch(e) {
-        console.error(e);
+      if (res.data.success) {
+        callback(name);
+      } else {
+        alert('File upload failed');
+      }
+    } catch (error) {
+      
+      alert('File upload failed');
+      console.error(error);
     }
-}
+  };
 
   return (
     <div

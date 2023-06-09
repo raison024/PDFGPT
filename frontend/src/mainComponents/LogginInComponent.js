@@ -87,7 +87,7 @@ function LogginInComponent(props) {
       <h2 style={{ fontFamily: 'Euclid Circular A Medium, sans-serif' }}>Authorization</h2>
       <input type="text" onChange={handleUsernameAuthChange} style={{outline: 'none', fontFamily: 'Euclid Circular A Light, sans-serif', backgroundColor:"#FFFFFF", boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)" , width: '80%', height: '30px', borderRadius: '15px', border: '0.5px solid gray', padding: '10px', marginBottom: '20px' }} placeholder="Username" />
       <input type="password" onChange={handlePasswordAuthChange} style={{outline: 'none', fontFamily: 'Euclid Circular A Light, sans-serif', backgroundColor:"#FFFFFF", boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)" , width: '80%', height: '30px', borderRadius: '15px', border: '0.5px solid gray', padding: '10px', marginBottom: '20px' }} placeholder="Password" />
-      <button type="submit" style={{ borderRadius: '20px', backgroundColor: '#5CC2C2', border: 'none', padding: '10px', marginLeft: '20px', fontFamily: 'Euclid Circular A Light, sans-serif', width: '120px', color: '#FFFFFF', cursor: 'pointer' }}>Sign In</button>
+      <button type="submit" style={{ borderRadius: '20px', backgroundColor: '#458FF6', border: 'none', padding: '10px', marginLeft: '20px', fontFamily: 'Euclid Circular A Light, sans-serif', width: '120px', color: '#FFFFFF', cursor: 'pointer' }}>Sign In</button>
       {authErrorMessage && (
         <p style={{ color: 'red', marginTop: '10px' }}>{authErrorMessage}</p>
       )}
@@ -98,7 +98,7 @@ function LogginInComponent(props) {
       <h2 style={{ fontFamily: 'Euclid Circular A Medium, sans-serif' }}>Create Account</h2>
       <input onChange={handleUsernameCreateChange} type="text" style={{outline: 'none', fontFamily: 'Euclid Circular A Light, sans-serif', backgroundColor:"#FFFFFF", boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)" , width: '80%', height: '30px', borderRadius: '15px', border: '0.5px solid gray', padding: '10px', marginBottom: '20px' }} placeholder="Username" />
       <input onChange={handlePasswordCreateChange} type="password" style={{outline: 'none', fontFamily: 'Euclid Circular A Light, sans-serif', backgroundColor:"#FFFFFF", boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)" , width: '80%', height: '30px', borderRadius: '15px', border: '0.5px solid gray', padding: '10px', marginBottom: '20px' }} placeholder="Password" />
-          <button type="submit" style={{ borderRadius: '20px', backgroundColor: '#5CC2C2', border: 'none', padding: '10px', marginLeft: '20px', fontFamily: 'Euclid Circular A Light, sans-serif', width: '120px', color: '#FFFFFF', cursor: 'pointer' }}>Create</button>
+          <button type="submit" style={{ borderRadius: '20px', backgroundColor: '#458FF6', border: 'none', padding: '10px', marginLeft: '20px', fontFamily: 'Euclid Circular A Light, sans-serif', width: '120px', color: '#FFFFFF', cursor: 'pointer' }}>Create</button>
           {createErrorMessage && (
         <p style={{ color: 'red', marginTop: '10px' }}>{createErrorMessage}</p>
       )}

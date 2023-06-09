@@ -7,8 +7,9 @@ import sqlite3
 import datetime
 import pickle
 import os
-
-# Validates user signup, checks existing usernames
+# import daal4py
+# import daal4py.sklearn
+# daal4py.sklearn.patch_sklearn()
 def signup_user(username, password):
     conn = sqlite3.connect("pagetalk.db")
     cur = conn.cursor()
@@ -24,7 +25,7 @@ def signup_user(username, password):
         conn.close()
         return False
 
-# Validates user login, checks match between username and password
+
 def validate_user(username, password):
     conn = sqlite3.connect("pagetalk.db")
     cur = conn.cursor()
@@ -36,7 +37,7 @@ def validate_user(username, password):
         conn.close()
         return True
 
-# Runs query through the similarity search and question answering chain
+
 def get_reply(query, conversation, username):
     conn = sqlite3.connect("pagetalk.db")
     cur = conn.cursor()
@@ -54,10 +55,10 @@ def get_reply(query, conversation, username):
     conn.close()
     return reply
 
-# Stores text, and all relevant information in the database
+
 def store_text(pdf_reader, title, username):
-    text = get_text(pdf_reader) # Retrieves the raw text from the pdf
-    chunks = chunk_text(text) # Separates the text into chunks 
+    text = get_text(pdf_reader) 
+    chunks = chunk_text(text) 
 
     embeddings = OpenAIEmbeddings()
     db = FAISS.from_texts(chunks, embeddings)
@@ -73,19 +74,19 @@ def store_text(pdf_reader, title, username):
     conn.close()
     
 
-# Separates text into chunks for token limit
+
 def chunk_text(text):
     text_splitter = CharacterTextSplitter(
-        separator = '\n',
-        chunk_size = 2000,
-        chunk_overlap = 200,
-        length_function = len,
+        separator='\n',
+        chunk_size=2000,
+        chunk_overlap=200,
+        length_function=len,
     )
 
-    chunks = text_splitter.split_text(text)
+    chunks = daal4py.partition_by_blocks(text, chunk_size=2000, overlap_size=200)
+
     return chunks
 
-# Retrieves raw text from pdf
 def get_text(pdf_reader):
     raw_text = ''
     for page in pdf_reader.pages:

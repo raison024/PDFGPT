@@ -21,13 +21,14 @@ def validate_key():
     try:
         key = request.json['key']
         openai.api_key = key
-        model_list = openai.Model.list() # Attempts to call the openai API
-    
+        model_list = openai.Model.list()  # Attempts to call the OpenAI API
+
         os.environ["OPENAI_API_KEY"] = key
         return {'is_valid': True}
     except:
         return {'is_valid': False}
-    
+
+
 @app.route('/signup/', methods=['POST'])
 def signup():
     username = request.json["username"]
@@ -40,6 +41,7 @@ def signup():
         return {'success': True, 'username': username}
     else:
         return {'success': False}
+
 
 # Validates the user's login information
 @app.route('/login/', methods=['POST'])
@@ -54,21 +56,34 @@ def login():
     else:
         return {'success': False}
 
+
 # Case where user uploads PDF
 @app.route('/upload_pdf/', methods=['POST'])
 def upload_pdf():
     try:
-        file = request.files['file']
-        pdf_reader = PyPDF2.PdfReader(file)
-        store_text(pdf_reader, file.filename, SESSION[0]) # passes PDF, file name which is part of request object, and username
-        return {'success': True}
-    except:
-        return {'success': False}
+        if 'file' not in request.files:
+            return {'success': False, 'message': 'No file provided'}
 
-# Case where user prompts chatbot for answer
+        file = request.files['file']
+        if file.filename == '':
+            return {'success': False, 'message': 'No file selected'}
+
+        if file.content_type != 'application/pdf':
+            return {'success': False, 'message': 'Only PDF files are allowed'}
+
+        pdf_reader = PyPDF2.PdfReader(file)
+        store_text(pdf_reader, file.filename, SESSION[0])  # Passes PDF, file name (part of request object), and username
+
+        return {'success': True}
+    except Exception as e:
+        print(e)
+        return {'success': False, 'message': 'File uploadssss failed'}
+
+
+# Case where user prompts chatbot for an answer
 @app.route('/chat/', methods=['POST'])
 def chat():
-    try: 
+    try:
         query = request.json['message']
         title = request.json['title']
         response = get_reply(query, title, SESSION[0])
@@ -77,7 +92,7 @@ def chat():
     except Exception as e:
         print(e)
         return {'success': False, 'response': None}
-    
+
 
 @app.route('/access_messages/', methods=['POST'])
 def access_messages():
@@ -88,7 +103,6 @@ def access_messages():
         return {'success': True, 'chat': messages}
     except:
         return {'success': False, 'chat': None}
-
 
 
 if __name__ == "__main__":
